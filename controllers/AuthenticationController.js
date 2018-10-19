@@ -1,34 +1,37 @@
 const User = require('../mdoels/user')
 
 module.exports = {
-    register(req,res) {
+    register(req,res,next) {
         var data = {}
         data['username'] = req.body.username
         data['password'] = req.body.password
         User.create(data, function (err,doc) {
             if(err){
-                console.log('Could not register')
-                res.send('Could not register')
+                var response = {}
+                response['message'] = 'Could not register'
+                res.status(404).json(response)
             }
             else{
-                console.log('Registered')
-                res.send('Registered')
+                var response = {}
+                response['message'] = 'Registration Succesful'
+                res.status(200).json(response)
             }
         })
     },
 
-    login(req,res) {
+    login(req,res,next) {
         var data = {}
-        data['username'] = 'test'
-        data['password'] = 'test'
+        data['username'] = req.body.username
+        data['password'] = req.body.password
         User.findOne(data, function(err,doc) {
+            var response = {}
             if(doc == null){
-                res.send('Could not find user')
-                console.log('Could not find user')
+                response['message'] = 'Could not find user'
+                res.status(404).json(response)
             }
             else {
-                res.send('User found')
-                console.log('User found')
+                response['message'] = 'Succesfully logged in'
+                res.status(200).json(response)
             }
         })
     }

@@ -2,10 +2,9 @@ const AuthenticationController = require('./controllers/AuthenticationController
 const BlogsController = require('./controllers/BlogsController')
 
 module.exports = function(app) {
-    app.get('/',(req,res) => {
-        res.send('Yo')
-    })
-    app.get('/login', AuthenticationController.login,(req,res) =>{
-        res.send('in login')
-    })
+    app.get('/',BlogsController.getTop)
+    app.get('/create', BlogsController.createBlog)
+    app.get('/login', AuthenticationController.login)
+    app.get('/register', AuthenticationController.register)
+    app.get('/user/:username', BlogsController.getUserBlogs)
 }
