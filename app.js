@@ -5,15 +5,16 @@ const mongoose = require('mongoose')
 const app = express()
 const usersRoute = require('./routes/users')
 const blogsRoute = require('./routes/blogs')
-
+const session = require('express-session')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(cors())
+app.use(session({
+    'secret' : '343ji43j4n3jn4jk3n'
+}))
 app.use('/users',usersRoute)
 app.use('/blogs',blogsRoute)
-
-
 app.get('*',function (req, res) {
     res.redirect('/blogs')
 })

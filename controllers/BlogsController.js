@@ -4,7 +4,7 @@ const User = require('../mdoels/user')
 module.exports = {
     createBlog(req,res) {
         var data = {}
-        data['author'] = req.body.author
+        data['author'] = req.session.user
         data['title'] = req.body.title
         data['body'] = req.body.body
         Blog.create(data, function(err,doc) {
