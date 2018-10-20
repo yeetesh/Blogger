@@ -3,8 +3,10 @@ const AuthenticationController = require('../controllers/AuthenticationControlle
 const BlogsController = require('../controllers/BlogsController')
 var router = express.Router()
 
-router.get('/login', AuthenticationController.login)
-router.get('/create', AuthenticationController.register)
+
+router.get('/', AuthenticationController.allUsers)
+router.post('/login', AuthenticationController.login)
+router.post('/create', AuthenticationController.register)
 router.get('/:username', BlogsController.getUserBlogs)
 
 module.exports = router

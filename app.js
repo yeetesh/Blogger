@@ -8,6 +8,7 @@ const blogsRoute = require('./routes/blogs')
 
 
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended : true}))
 app.use(cors())
 app.use('/users',usersRoute)
 app.use('/blogs',blogsRoute)
@@ -18,7 +19,12 @@ app.get('*',function (req, res) {
 })
 
 
-mongoose.connect('mongodb://localhost/tab-tracker')
+app.post('*',function (req, res) {
+    res.redirect('/blogs')
+})
+
+
+mongoose.connect('mongodb://localhost/blog_database',{ useNewUrlParser: true })
     .then(() => {
         console.log('MongoDB Connected and server started')
         app.listen(5000)

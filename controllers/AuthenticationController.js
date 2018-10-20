@@ -1,7 +1,7 @@
 const User = require('../mdoels/user')
 
 module.exports = {
-    register(req,res,next) {
+    register(req,res) {
         var data = {}
         data['username'] = req.body.username
         data['password'] = req.body.password
@@ -32,6 +32,19 @@ module.exports = {
             else {
                 response['message'] = 'Succesfully logged in'
                 res.status(200).json(response)
+            }
+        })
+    },
+    allUsers(req,res) {
+        User.find(function(err,doc) {
+            var response = {}
+            if(err) {
+                response['message'] = 'could not load users'
+                res.send(404).json(response)
+            }
+            else {
+                response['users'] = doc
+                res.json(response)
             }
         })
     }
