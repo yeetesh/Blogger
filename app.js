@@ -3,11 +3,19 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const app = express()
-const routes = require('./routes')
+const usersRoute = require('./routes/users')
+const blogsRoute = require('./routes/blogs')
+
 
 app.use(bodyParser.json())
 app.use(cors())
-routes(app)
+app.use('/users',usersRoute)
+app.use('/blogs',blogsRoute)
+
+
+app.get('*',function (req, res) {
+    res.redirect('/blogs')
+})
 
 
 mongoose.connect('mongodb://localhost/tab-tracker')
